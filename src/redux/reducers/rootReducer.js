@@ -1,7 +1,14 @@
-// store.js
-import { createStore } from 'redux';
-import rootReducer from './reducers'; // Tạo reducer sau
+// redux/store.js
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import modalReducer from './modalReducer';
+import themeReducer from './themeReducer';
 
-const store = createStore(rootReducer);
+const rootReducer = combineReducers({
+  modal: modalReducer,
+  theme: themeReducer,
+});
+
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 export default store;

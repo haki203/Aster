@@ -10,6 +10,8 @@ import Login from './src/screens/Login';
 import Home from './src/screens/Home';
 import AppNavigator from './src/navigation/AppNavigator';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import {LogBox} from 'react-native';
+LogBox.ignoreAllLogs(true);
 
 const App = () => {
    //const dispatch = useDispatch();

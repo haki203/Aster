@@ -27,7 +27,7 @@ const Login = (props) => {
       ) : (
         <View style={styles.container}>
           <ImageBackground
-            style={{ width: width, height: height }}
+            style={{ width: width,height:'100%'}}
             source={require('../assets/images/bg_welcome.png')}>
             <View style={styles.body}>
               <View style={styles.title}>
