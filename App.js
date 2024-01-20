@@ -6,7 +6,7 @@ import { toggleTheme } from './src/redux/actions/themeActions';
 import store from './src/redux/store';
 import { Provider } from 'react-redux';
 import ThemeWrapper from './src/components/ThemeWrapper ';
-import Login from './src/screens/Login';
+import Login from './src/components/page/Login/Login';
 import Home from './src/screens/Home';
 import AppNavigator from './src/navigation/AppNavigator';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';

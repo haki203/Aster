@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, StyleSheet, SafeAreaView, Alert, TextInput, Switch, Dimensions, TouchableWithoutFeedback, FlatList, KeyboardAvoidingView, BackHandler } from 'react-native'
+import { View, Text, TouchableOpacity, Image, StyleSheet, SafeAreaView, Alert, TextInput, Switch, Dimensions, TouchableWithoutFeedback, FlatList, KeyboardAvoidingView, BackHandler, ToastAndroid } from 'react-native'
 import React, { useEffect, useState, useRef } from 'react'
 import { StatusBar, Platform, Keyboard } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -48,11 +48,16 @@ const Home = () => {
     console.log('Cancel pressed');
     dispatch(hideModal());
   };
+  const onClickAlert = () => {
+    console.log("ccc");
+    ToastAndroid.show("ccc", ToastAndroid.SHORT);
+
+  } 
   const onShowModal = () => {
     console.log('click');
     console.log(isModalVisible);
     dispatch(showModal());
-
+    
   }
 
   //modal
@@ -100,7 +105,6 @@ const Home = () => {
       if (flatListRef.current && dataHistory && dataHistory.length > 0) {
         flatListRef.current.scrollToEnd({ animated: true });
         console.log("size 3s: ", dataHistory.length);
-
       }
     }, 3000);
 
@@ -214,28 +218,35 @@ const Home = () => {
   }, []);
   try {
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: isDarkMode ? 'black' : '#E9E4D1', paddingTop: stBarHeight, paddingHorizontal: 10, alignItems: 'center' }}>
 
-        <View style={{ alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', paddingVertical: 10, width: '100%', height: '8%', display: !onNe ? 'flex' : 'none' }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: isDarkMode ? 'black' : '#E9E4D1', paddingTop: stBarHeight, alignItems: 'center' }}>
+
+        <View style={{ alignItems: 'center', paddingHorizontal: 10, justifyContent: 'space-between', flexDirection: 'row', paddingVertical: 10, width: '100%', height: '8%', display: !onNe ? 'flex' : 'none' }}>
           <Ionicons onPress={() => handlePress()} name="menu" size={24} color={isDarkMode ? 'white' : 'black'} />
-          <TouchableOpacity onPress={()=>onShowModal()} style={{backgroundColor:'blue'}}>
+          <TouchableOpacity onPress={() => onShowModal()} style={{}}>
             <FontAwesome5 name="user-circle" size={22} color={isDarkMode ? 'white' : 'black'} />
           </TouchableOpacity>
         </View>
+        
         {/* display: isModalVisible ? 'flex' : 'none' */}
-        <View style={{width:200,height:200,backgroundColor:'blue',justifyContent:'center',alignItems:'center' }}>
-          <CustomAlert onOk={onOk} onCancel={onCancel} isModalVisible={isModalVisible}/>
-        </View>
-        <View style={{ width: '100%', backgroundColor: '#E9E4D1' }}></View>
+        {
+          isModalVisible &&
+          (
+            <View style={{ display: isModalVisible ? 'flex' : 'none', width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', position: 'absolute', backgroundColor: 'rgba(0, 0, 0, 0.4)', bottom: 0, left: 0, right: 0, zIndex: 1 }}>
+              <CustomAlert isModalVisible={isModalVisible} onOk={onOk} onCancel={onCancel} handleClickAlert={onClickAlert} message={"adum asd asd asda may"} />
+            </View>
+          )
+        }
+        <View style={{ width: '100%', backgroundColor: '#E9E4D1', }}></View>
 
         {
           !action ?
-            (<TouchableOpacity onPress={handlePressView} activeOpacity={1} style={{ alignItems: 'center', justifyContent: 'center', height: onNe ? '100%' : '80%', borderRadius: 10, paddingBottom: 10 }}>
-              <Image onPress={handlePressView} style={{ width: 100, height: 100, borderRadius: 100, marginBottom: 20 }} source={require('../assets/images/logo-aster.png')} />
-              <Text onPress={handlePressView} style={[styles.textHello, { color: isDarkMode ? 'white' : 'black', paddingHorizontal: 5 }]}>I'm here to help you with whatever you need, from answering questions to providing recommendations. Let's chat!</Text>
-              <Text onPress={handlePressView} style={[styles.textHello, { paddingHorizontal: 20, color: isDarkMode ? 'white' : 'black' }]}>Example: Some text example goes in here</Text>
+            (<TouchableOpacity onPress={handlePressView} activeOpacity={1} style={{ alignItems: 'center', paddingHorizontal: 10, justifyContent: 'center', height: onNe ? '100%' : '80%', borderRadius: 10, paddingBottom: 10 }}>
+              <Image style={{ width: 100, height: 100, borderRadius: 100, marginBottom: 20 }} source={require('../assets/images/logo-aster.png')} />
+              <Text style={[styles.textHello, { color: isDarkMode ? 'white' : 'black', paddingHorizontal: 5 }]}>I'm here to help you with whatever you need, from answering questions to providing recommendations. Let's chat!</Text>
+              <Text style={[styles.textHello, { paddingHorizontal: 20, color: isDarkMode ? 'white' : 'black' }]}>Example: Some text example goes in here</Text>
             </TouchableOpacity>) :
-            (<View style={{ width: '100%', height: onNe ? '100%' : '80%', }}>
+            (<View style={{ width: '100%', height: onNe ? '100%' : '80%', paddingHorizontal: 10, }}>
               <FlatList
                 ref={flatListRef}
                 style={{ width: '100%', height: '100%' }}
@@ -255,7 +266,7 @@ const Home = () => {
               />
             </View>)
         }
-        <View style={[styles.chatContainer, { height: !onNe ? '12%' : '20%' }]}>
+        <View style={[styles.chatContainer, { height: !onNe ? '12%' : '20%', paddingHorizontal: 10, }]}>
           <View style={[styles.chatAI, { height: !onNe ? '80%' : '100%', }]}>
             <TextInput
               onFocus={() => setOnNe(true)}
@@ -287,7 +298,7 @@ const Home = () => {
         >
           <View style={{ backgroundColor: '#AFAA96', height: height + stBarHeight, flex: 1, paddingTop: stBarHeight * 2, paddingStart: 10, alignItems: 'center' }}>
             <View style={styles.menuItem}>
-              <Text >Chế độ tối</Text>
+              <Text >Đoạn chat mới</Text>
               <Switch trackColor={'black'} thumbColor={'white'} value={test} onValueChange={(value) => setTest(value)} />
             </View>
             <TouchableOpacity style={styles.menuItem}>
@@ -331,7 +342,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: '100%',
     height: '100%',
-    backgroundColor: 'blue', // Màu nền của phần nền màn hình
     zIndex: -1, // Đảm bảo rằng phần nền được vẽ trước phía trước của các phần tử khác
   },
   chatContainer: {

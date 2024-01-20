@@ -1,17 +1,63 @@
-import { StyleSheet, Text, View, Dimensions, ImageBackground, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Dimensions, ImageBackground, Image, TouchableOpacity, Alert, ToastAndroid } from 'react-native'
 import React, { useEffect, useState } from 'react'
 const { width, height } = Dimensions.get('window');
 const backgroundColor = '#FDFDFD';
+import TouchID from 'react-native-touch-id'
+
 const color = '#FFFFFF';
 import { useDispatch } from 'react-redux';
-import { toggleTheme } from '../redux/actions/themeActions';
+import { toggleTheme } from '../../../redux/actions/themeActions';
+import { optionalConfigObject } from './config';
+
 const Login = (props) => {
+
   const [isLoading, setIsLoading] = useState(false);
+  const [isSupportTouchId, setIsSupportTouchId] = useState(false);
+  const [isSupportFaceId, setIsSupportFaceId] = useState(false);
   const dispatch = useDispatch();
-  const {navigation}=props;
+  const { navigation } = props;
   const toggleThemeHandler = () => {
     dispatch(toggleTheme());
   };
+  useEffect(() => {
+    const checkIsSupported = async () => {
+      TouchID.isSupported(optionalConfigObject)
+        .then(biometryType => {
+          // Success code
+          if (biometryType === 'FaceID') {
+            console.log('FaceID is supported.');
+            setIsSupportTouchId(false)
+
+          } else {
+            console.log('TouchID is supported.');
+            setIsSupportTouchId(true)
+          }
+        })
+        .catch(error => {
+          // Failure code
+          console.log(error);
+        });
+    }
+    checkIsSupported();
+
+  }, []);
+  const onTouchId = async() => {
+    console.log("cham vao di");
+    try {
+      await TouchID.authenticate('Chạm vào cảm biến vân tay để đăng nhập', optionalConfigObject)
+      .then(success => {
+        ToastAndroid.show('Đăng nhập thành công',ToastAndroid.SHORT);
+        console.log('thanh cong');
+      })
+      .catch(error => {
+        console.log('that bai');
+      });
+    } catch (error) {
+      console.log('loi ne: ',error);
+    }
+    console.log("cham thanh cong");
+
+  }
   return (
     <View>
       {isLoading ? (
@@ -27,13 +73,13 @@ const Login = (props) => {
       ) : (
         <View style={styles.container}>
           <ImageBackground
-            style={{ width: width,height:'100%'}}
-            source={require('../assets/images/bg_welcome.png')}>
+            style={{ width: width, height: '100%' }}
+            source={require('../../../assets/images/bg_welcome.png')}>
             <View style={styles.body}>
               <View style={styles.title}>
                 <Image
                   style={styles.image}
-                  source={require('../assets/images/logo-aster.png')}
+                  source={require('../../../assets/images/logo-aster.png')}
                 />
                 <View style={styles.textView}>
                   <Text style={styles.textView_2}>
@@ -44,21 +90,21 @@ const Login = (props) => {
 
               <View style={styles.touchable}>
                 <TouchableOpacity
-                  onPress={() => toggleThemeHandler()}
+                  onPress={() => onTouchId()}
                   style={styles.touchableGG}
                 >
                   <Image
-                    style={[styles.icon,{width:23,height:23}]}
-                    source={require('../assets/images/otp.png')}></Image>
+                    style={[styles.icon, { width: 23, height: 23 }]}
+                    source={require('../../../assets/images/otp.png')}></Image>
                   <Text style={styles.textView_GG}>Đăng nhập bằng SMS </Text>
                 </TouchableOpacity>
                 <Text style={styles.textView_3}>HOẶC</Text>
-                <TouchableOpacity onPress={()=>navigation.navigate('Home')}
+                <TouchableOpacity onPress={() => navigation.navigate('Home')}
                   style={styles.touchableGG}
                 >
                   <Image
                     style={styles.icon}
-                    source={require('../assets/images/ic_gg.png')}></Image>
+                    source={require('../../../assets/images/ic_gg.png')}></Image>
                   <Text style={styles.textView_GG}>Đăng nhập bằng Google</Text>
                 </TouchableOpacity>
               </View>
@@ -101,7 +147,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom:height*0.04
+    marginBottom: height * 0.04
   },
   textView_1: {
     color: color,
@@ -117,9 +163,9 @@ const styles = StyleSheet.create({
   },
   touchable: {
     width: '100%',
-    alignItems:'center',
-    marginTop:height*0.15,
-    height:height*0.3
+    alignItems: 'center',
+    marginTop: height * 0.15,
+    height: height * 0.3
   },
 
   textView_FB: {

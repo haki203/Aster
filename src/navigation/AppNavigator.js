@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
 import React, { useContext, useEffect, useState, useCallback } from 'react'
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
-import Login from '../screens/Login';
+import Login from '../components/page/Login/Login';
 import HomeScreen from '../screens/Home';
 const Stack = createStackNavigator();
 const Home = () => {
