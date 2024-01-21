@@ -6,7 +6,7 @@ import TouchID from 'react-native-touch-id'
 
 const color = '#FFFFFF';
 import { useDispatch } from 'react-redux';
-import { toggleTheme } from '../../../redux/actions/themeActions';
+import { toggleTheme } from '../../redux/actions/themeActions';
 import { optionalConfigObject } from './config';
 
 const Login = (props) => {
@@ -48,6 +48,7 @@ const Login = (props) => {
       .then(success => {
         ToastAndroid.show('Đăng nhập thành công',ToastAndroid.SHORT);
         console.log('thanh cong');
+        navigation.navigate('Home');
       })
       .catch(error => {
         console.log('that bai');
@@ -74,12 +75,12 @@ const Login = (props) => {
         <View style={styles.container}>
           <ImageBackground
             style={{ width: width, height: '100%' }}
-            source={require('../../../assets/images/bg_welcome.png')}>
+            source={require('../../assets/images/bg_welcome.png')}>
             <View style={styles.body}>
               <View style={styles.title}>
                 <Image
                   style={styles.image}
-                  source={require('../../../assets/images/logo-aster.png')}
+                  source={require('../../assets/images/logo-aster.png')}
                 />
                 <View style={styles.textView}>
                   <Text style={styles.textView_2}>
@@ -95,8 +96,8 @@ const Login = (props) => {
                 >
                   <Image
                     style={[styles.icon, { width: 23, height: 23 }]}
-                    source={require('../../../assets/images/otp.png')}></Image>
-                  <Text style={styles.textView_GG}>Đăng nhập bằng SMS </Text>
+                    source={require('../../assets/images/otp.png')}></Image>
+                  <Text style={styles.textView_GG}>Đăng nhập bằng vân tay</Text>
                 </TouchableOpacity>
                 <Text style={styles.textView_3}>HOẶC</Text>
                 <TouchableOpacity onPress={() => navigation.navigate('Home')}
@@ -104,7 +105,7 @@ const Login = (props) => {
                 >
                   <Image
                     style={styles.icon}
-                    source={require('../../../assets/images/ic_gg.png')}></Image>
+                    source={require('../../assets/images/ic_gg.png')}></Image>
                   <Text style={styles.textView_GG}>Đăng nhập bằng Google</Text>
                 </TouchableOpacity>
               </View>

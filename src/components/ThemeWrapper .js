@@ -1,6 +1,6 @@
 // ThemeWrapper.js
 import React, { useEffect } from 'react';
-import { SafeAreaView, StatusBar } from 'react-native';
+import { SafeAreaView, StatusBar,View } from 'react-native';
 import { useSelector } from 'react-redux';
 
 const ThemeWrapper = ({ children }) => {

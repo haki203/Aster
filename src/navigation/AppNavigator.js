@@ -1,8 +1,9 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
 import React, { useContext, useEffect, useState, useCallback } from 'react'
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
-import Login from '../components/page/Login/Login';
-import HomeScreen from '../screens/Home';
+import Login from '../screens/Login/Login';
+import HomeScreen from '../screens/HomeScreen';
+import { useSelector } from 'react-redux';
 const Stack = createStackNavigator();
 const Home = () => {
     return (
@@ -231,8 +232,12 @@ const Home = () => {
 //     )
 // }
 const AppNavigator = () => {
+    const stBarHeight = useSelector((state) => state.theme.stBarHeight);
+
     return (
-        <Home />
+        <View style={{flex:1}}>
+            <Home />
+        </View>
 
     )
 

@@ -219,7 +219,7 @@ const Home = () => {
   try {
     return (
 
-      <SafeAreaView style={{ flex: 1, backgroundColor: isDarkMode ? 'black' : '#E9E4D1', paddingTop: stBarHeight, alignItems: 'center' }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: isDarkMode ? 'black' : '#E9E4D1', alignItems: 'center' }}>
 
         <View style={{ alignItems: 'center', paddingHorizontal: 10, justifyContent: 'space-between', flexDirection: 'row', paddingVertical: 10, width: '100%', height: '8%', display: !onNe ? 'flex' : 'none' }}>
           <Ionicons onPress={() => handlePress()} name="menu" size={24} color={isDarkMode ? 'white' : 'black'} />
