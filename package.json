@@ -19,7 +19,6 @@
     "openai": "^4.24.1",
     "react": "18.2.0",
     "react-native": "0.73.1",
-    "react-native-clipboard": "^0.0.5",
     "react-native-eject": "^0.2.0",
     "react-native-gesture-handler": "^2.14.0",
     "react-native-linear-gradient": "^2.8.3",
