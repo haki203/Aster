@@ -29,7 +29,7 @@ function formatPrice(so) {
 const ItemCoffeeHome = ({ item, onPress,width }) => {
 
     return (
-        <View style={{
+        <TouchableOpacity style={{
             alignItems: 'center',
             justifyContent: 'center',
             borderRadius: 20,
@@ -41,7 +41,7 @@ const ItemCoffeeHome = ({ item, onPress,width }) => {
             <Text style={{ fontFamily: 'Poppins', fontWeight: '500', color: 'black', fontSize: 16 }}>{item.name}</Text>
             <Image
                 style={{ width: '100%', height: 150, borderRadius: 10, marginTop: 5, marginBottom: 5 }}
-                source={{ uri: item.image }}
+                source={{ uri: item.image[0] }}
             />
             <Text style={{marginBottom: 10,textAlign:'justify' }} numberOfLines={3} ellipsizeMode="tail" >{limitText(item.description)}</Text>
             <View style={{ flexDirection: 'row', alignItems: 'center' ,justifyContent:'space-between',width:'100%'}}>
@@ -54,7 +54,7 @@ const ItemCoffeeHome = ({ item, onPress,width }) => {
                     <Text style={{ color: 'white', fontSize: 18 }}>+</Text>
                 </TouchableOpacity>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 

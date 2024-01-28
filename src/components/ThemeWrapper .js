@@ -14,9 +14,8 @@ const ThemeWrapper = ({ children }) => {
   return (
     <>
       <StatusBar
-        translucent
-        backgroundColor={isDarkMode ? 'black' : 'rgba(0, 0, 0, 0.1)'} // Đổi màu và độ trong suốt tại đây
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+        translucent={true}
+        backgroundColor={isDarkMode ? 'black' : 'rgba(128, 128, 128, 0)'} // Đổi màu và độ trong suốt tại đây
       />
       {children}
     </>

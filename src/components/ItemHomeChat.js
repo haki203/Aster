@@ -5,7 +5,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Icon_3 from 'react-native-vector-icons/AntDesign';
 const { width, height } = Dimensions.get('window');
 import Clipboard from '@react-native-clipboard/clipboard';
-const ItemHomeChat = (props) => {
+const ItemHomeChat = React.memo((props) => {
     const { dulieu, navigation, isDarkMode } = props;
     const [like, setLike] = useState(false);
     const [dislike, setDislike] = useState(false);
@@ -65,7 +65,7 @@ const ItemHomeChat = (props) => {
     } catch (error) {
         console.log("item error:", error);
     }
-}
+});
 
 export default ItemHomeChat
 
