@@ -19,6 +19,7 @@ const Home = () => {
     return (
         <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Detail" component={Detail} />
             <Stack.Screen name="Home" component={HomeScreen} />
         </Stack.Navigator>
     )
@@ -97,8 +98,7 @@ const HomeTab = () => {
 const AppNavigator = () => {
     return (
         <View style={{ flex: 1,backgroundColor:'#F9F9F9' }}>
-            {/* <HomeTab /> */}
-            <Detail/>
+            <HomeTab />
         </View>
     )
 }

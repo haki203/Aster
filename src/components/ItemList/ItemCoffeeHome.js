@@ -26,10 +26,10 @@ function formatPrice(so) {
 
     return chuoiSo;
 }
-const ItemCoffeeHome = ({ item, onPress,width }) => {
+const ItemCoffeeHome = ({ item, onPressItem,width }) => {
 
     return (
-        <TouchableOpacity style={{
+        <TouchableOpacity onPress={()=>onPressItem(item)} style={{
             alignItems: 'center',
             justifyContent: 'center',
             borderRadius: 20,
@@ -49,10 +49,7 @@ const ItemCoffeeHome = ({ item, onPress,width }) => {
                     fontSize: 18, fontWeight: 'bold',
                     fontFamily: 'Poppins', color: 'orange', alignSelf: 'flex-start',
                 }}>{formatPrice(item.price)} đ</Text>
-                <TouchableOpacity onPress={() => onPress(item)}
-                    style={{ backgroundColor: '#C67C4E', justifyContent: 'center', alignItems: 'center', width: 25, height: 25, borderRadius: 5 }}>
-                    <Text style={{ color: 'white', fontSize: 18 }}>+</Text>
-                </TouchableOpacity>
+
             </View>
         </TouchableOpacity>
     )

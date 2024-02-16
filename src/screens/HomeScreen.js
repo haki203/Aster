@@ -15,8 +15,7 @@ const images = [
   'https://th.bing.com/th/id/OIP.SEb16b9s2aJkSStpWzwTbgHaHa?w=175&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7'
 ]
 const { width, height } = Dimensions.get('window');
-const HomeScreen = () => {
-  const navigation = useNavigation();
+const HomeScreen = ({route,navigation}) => {
   const stBarHeight = useSelector((state) => state.theme.stBarHeight);
   const [listCart, setListCart] = useState([]);
   const [onMiniCart, setOnMiniCart] = useState(false);
@@ -31,18 +30,6 @@ const HomeScreen = () => {
     console.log('Component is rerendered!');
     console.log(listCart.length);
   });
-  const [heiImage, setHeightImage] = useState(140);
-  const onScroll = (event) => {
-    // Lấy giá trị y từ sự kiện scroll
-    const offsetY = event.nativeEvent.contentOffset.y;
-    // if(offsetY>100){
-    //   setHeightImage(0);
-    // }else setHeightImage(140);
-    // Log giá trị
-    console.log('Giá trị khi lướt:', offsetY);
-
-    handleScroll(event)
-  };
   // animation
   const handleItemPress = (item) => {
     // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
@@ -64,6 +51,9 @@ const HomeScreen = () => {
     console.log('Item pressed:', item.name);
     console.log(listCart);
   };
+  const onPressItem=(item)=>{
+    navigation.navigate('Detail',{item:item,previousScreen:route.name});
+  }
   const onBtnCartMini = () => {
     console.log('---------------');
     parent.setOptions({ tabBarStyle: { display: 'none' } })
@@ -161,12 +151,12 @@ const HomeScreen = () => {
             justifyContent: 'center', // Hoặc có thể sử dụng 'space-around'
             alignItems: 'center',
           }}
-          renderItem={({ item }) => <ItemCoffeeHome onPress={handleItemPress} item={item} width={width - 40 - 20} />}
+          renderItem={({ item }) => <ItemCoffeeHome onPressItem={onPressItem} item={item} width={width - 40 - 20} />}
           keyExtractor={(item) => item.id.toString()}
           numColumns={2}
         />
       </ScrollView>
-      {listCart.length > 0 && (
+      {/* {listCart.length > 0 && (
         <TouchableOpacity
           onPress={onBtnCartMini}
           style={{
@@ -179,8 +169,8 @@ const HomeScreen = () => {
             {listCart.length}
           </Text>
         </TouchableOpacity>
-      )}
-      {
+      )} */}
+      {/* {
         onMiniCart && (
           <ListMiniCart
             styles={{
@@ -193,7 +183,7 @@ const HomeScreen = () => {
             setListCart={setListCart}
           />
         )
-      }
+      } */}
       {/* go to top page */}
       <Animated.View
         style={{
